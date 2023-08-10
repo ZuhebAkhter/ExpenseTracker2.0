@@ -1,5 +1,6 @@
 import React,{useContext, useRef, useState} from 'react'
-import AuthContext from '../AuthContext';
+import AuthContext from '../Store/AuthContext';
+import {useNavigate} from 'react-router-dom'
 
 const Authentication = () => {
   const [isLogin,setIsLogin]=useState(true)
@@ -7,7 +8,7 @@ const Authentication = () => {
   const emailInputRef=useRef();
   const passwordInputRef=useRef();
   const authCtx=useContext(AuthContext)
-
+const navigate=useNavigate();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -64,8 +65,7 @@ const Authentication = () => {
         }
       }).then((data)=>{
         authCtx.login(data.idToken)
-        console.log('login Success')
-        
+        navigate('/welcome')
       })
       .catch((err)=>{
         alert(err.message)
@@ -80,7 +80,7 @@ const Authentication = () => {
 
   return (
     <div className='container d-flex justify-content-center mt-5'>
-    <form onSubmit={submitHandler} className='w-50 border mt-5 px-5'>
+    <form onSubmit={submitHandler} className='w-50 border rounded mt-5 px-5'>
   <h2 className='text-center pt-5'>{isLogin ? 'Sign In':'SignUp'}</h2>
 
   <div className="form-outline mb-4">
