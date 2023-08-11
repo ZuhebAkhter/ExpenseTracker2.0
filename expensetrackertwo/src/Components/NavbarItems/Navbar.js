@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import AuthContext from '../Store/AuthContext'
+import {useNavigate} from 'react-router-dom'
 
 const Navbar = () => {
+  const authCtx=useContext(AuthContext)
+  const navigate=useNavigate();
+  const onlogoutHandler=()=>{
+   authCtx.logout();
+   localStorage.removeItem('email')
+  navigate('/')
+  }
   return (
 //     <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
   
@@ -38,9 +47,7 @@ const Navbar = () => {
     </div>
 
     <div className="d-flex align-items-center">
-      <a className="text-reset me-3" href="#">
-        <i className="fas fa-shopping-cart"></i>
-      </a>
+      
 
      
       
@@ -76,6 +83,7 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+      {authCtx.isLoggedIn && <button onClick={onlogoutHandler} className='btn btn-danger m-2'>LogOut</button>}
     </div>
   </div>
 </nav>
