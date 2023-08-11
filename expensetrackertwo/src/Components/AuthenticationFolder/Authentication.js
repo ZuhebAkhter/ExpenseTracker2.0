@@ -14,6 +14,7 @@ const navigate=useNavigate();
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
+    localStorage.setItem('email',enteredEmail)
     const enteredPassword = passwordInputRef.current.value;
     if(enteredEmail.trim().length <= 0){
       (alert('Please Enter Email'))

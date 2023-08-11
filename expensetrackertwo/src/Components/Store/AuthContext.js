@@ -5,6 +5,7 @@ const AuthContext = React.createContext({
   isLoggedIn: false,
   login: (token) => {},
   logout: () => {},
+  profiles:[]
 });
 
 export const AuthContextProvider = (props) => {
@@ -34,6 +35,7 @@ export const AuthContextProvider = (props) => {
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
+    profiles:[]
   };
  
 

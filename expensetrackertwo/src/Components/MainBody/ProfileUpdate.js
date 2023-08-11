@@ -6,13 +6,50 @@ const ProfileUpdate = () => {
 const authCtx=useContext(AuthContext)
 const nameInputref=useRef()
 const importUrlInputref=useRef();
-console.log(authCtx)
+const UserEmail=localStorage.getItem('email')
+
+fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAETg2zF9x10EXhHPOpv0wtzwNtIHAPFXs',{
+    method:'POST',
+    headers:{
+        'Content-Type':'application/json',
+    },
+    body:JSON.stringify({
+        idToken:authCtx.token,
+    })
+}).then(res=>res.json())
+.then((data)=>{
+      console.log(data)
+    // authCtx.profiles.push(data.users);
+    // console.log(authCtx.profiles)
+    // authCtx.profiles.map((user)=>{
+    //     console.log(user)
+    data.users.map((user)=>{
+        const userDetails={
+            email:user.email,
+            name:user.displayName,
+            image:user.photoUrl
+        }
+        authCtx.profiles.push(userDetails)
+        if(user.displayName.length > 0){
+            nameInputref.current.value=user.displayName;
+            importUrlInputref.current.value=user.photoUrl;
+        }
+    })
+    // })
+
+}).catch(error=>{
+    console.log(error)
+})
 
     const updateProfileHandler=(event)=>{
         event.preventDefault();
+        
   const enteredName=nameInputref.current.value;
   const enteredImage=importUrlInputref.current.value;
-
+  if(enteredName.length <= 0 && enteredImage.length <= 0) {
+    alert('Please Fill Details')
+    return
+  }
 
   fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAETg2zF9x10EXhHPOpv0wtzwNtIHAPFXs',{
      method:'POST',
