@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import AuthContext from '../Store/AuthContext'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate,Link} from 'react-router-dom'
 
 const Navbar = () => {
   const authCtx=useContext(AuthContext)
@@ -32,15 +32,15 @@ const Navbar = () => {
 
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
      
-      <h2>Expense Tracker</h2>
+      <h2 className='me-2'>Expense Tracker</h2>
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-        {/* <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
-        </li> */}
-        {/* <li class="nav-item">
-          <a class="nav-link" href="#">Pr</a>
+        <li class="nav-item">
+          <Link class="nav-link" to="/welcome">Welcome</Link>
         </li>
         <li class="nav-item">
+          <Link class="nav-link" to="/expenses">Expenses</Link>
+        </li>
+        {/* <li class="nav-item">
           <a class="nav-link" href="#">Projects</a>
         </li> */}
       </ul>

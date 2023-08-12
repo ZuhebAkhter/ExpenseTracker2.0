@@ -92,7 +92,7 @@ const Authentication = () => {
       email:enteredEmail
     })
   }).then((res)=>res.json())
-  .then(data=>console.log(data))
+  .then(data=>alert('Check Your Email'))
 
   .catch(err=>alert(err))
 setloading(false)
